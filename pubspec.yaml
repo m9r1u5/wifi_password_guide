@@ -1,21 +1,24 @@
 name: wifi_password_guide
-description: A simple guide app to help users find saved Wi-Fi passwords on Windows using netsh commands.
+description: Phone-only app that reveals Wi-Fi passwords from Android "Share Wi-Fi" QR codes (screenshot or camera) and keeps them in a list.
 publish_to: 'none'
-version: 1.0.0+1
+version: 2.0.0+2
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  shared_preferences: ^2.2.2
+  shared_preferences: ^2.3.0
+  mobile_scanner: ^7.0.0
+  image_picker: ^1.1.2
+  app_settings: ^6.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true
