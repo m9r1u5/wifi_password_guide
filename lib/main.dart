@@ -1,11 +1,21 @@
 import 'dart:convert';
 
-import 'package:app_settings/app_settings.dart';
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+Future<void> openWifiSettings() async {
+  try {
+    await const AndroidIntent(action: 'android.settings.WIFI_SETTINGS').launch();
+  } catch (_) {
+    try {
+      await const AndroidIntent(action: 'android.settings.SETTINGS').launch();
+    } catch (_) {}
+  }
+}
 
 void main() {
   runApp(const WifiPasswordApp());
@@ -354,8 +364,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             tooltip: 'Open Wi-Fi settings',
             icon: const Icon(Icons.settings_outlined),
-            onPressed: () =>
-                AppSettings.openAppSettings(type: AppSettingsType.wifi),
+            onPressed: openWifiSettings,
           ),
           IconButton(
             tooltip: 'How to',
@@ -706,8 +715,7 @@ class HowToPage extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
           FilledButton.icon(
-            onPressed: () =>
-                AppSettings.openAppSettings(type: AppSettingsType.wifi),
+            onPressed: openWifiSettings,
             icon: const Icon(Icons.settings),
             label: const Text('Open Wi-Fi settings'),
           ),
