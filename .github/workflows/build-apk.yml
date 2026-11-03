@@ -32,6 +32,9 @@ jobs:
           rm -rf test
           # Nice app name under the icon instead of "wifi_password_guide"
           sed -i 's/android:label="[^"]*"/android:label="Wi-Fi Password Guide"/' android/app/src/main/AndroidManifest.xml
+          # Fully offline app: strip the INTERNET permission that ML Kit's telemetry pulls in
+          sed -i 's|<manifest xmlns:android="http://schemas.android.com/apk/res/android">|<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">\n    <uses-permission android:name="android.permission.INTERNET" tools:node="remove"/>|' android/app/src/main/AndroidManifest.xml
+          head -5 android/app/src/main/AndroidManifest.xml
           # QR scanner needs Android 7.0+ (API 24)
           for f in android/app/build.gradle.kts android/app/build.gradle; do
             if [ -f "$f" ]; then sed -i -E 's/minSdk( = |Version )flutter\.minSdkVersion/minSdk\1 24/' "$f"; fi
